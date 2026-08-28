@@ -1,8 +1,4 @@
-use std::{
-    env, fs,
-    path::Path,
-    process,
-};
+use std::{env, fs, path::Path, process};
 
 fn read_bytes(path: &Path) -> Result<Vec<u8>, String> {
     fs::read(path).map_err(|error| format!("failed to read '{}': {error}", path.display()))
