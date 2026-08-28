@@ -1,8 +1,8 @@
 # MCPWatch
 
-**Local baseline monitoring for Model Context Protocol configuration files.**
+**Focused local configuration-drift research for Model Context Protocol setups.**
 
-> **Status:** development preview. No stable release has been published.
+> **Companion research status:** MCPWatch's baseline and drift-detection direction has been integrated into [MCPDoctor](https://github.com/BLCCoreStudio/MCPDoctor). This repository remains public as a focused implementation reference and development history; new integrated MCP diagnostics and drift work targets MCPDoctor.
 
 MCPWatch keeps a user-selected baseline copy of an MCP configuration and makes later file changes explicit without sending configuration data to a remote service.
 
@@ -35,9 +35,15 @@ The current implementation:
 - exits `0` when unchanged, `3` when changed, and `2` on usage/read errors
 - requires no background daemon
 
+## Why this repository still exists
+
+MCPWatch is intentionally retained rather than deleted or republished. It preserves the smaller drift-monitoring experiment and existing links while MCPDoctor becomes the main product for MCP configuration health, executable diagnostics, security signals, and drift checks.
+
+For active integration work, use **MCPDoctor**.
+
 ## Scope
 
-The current preview detects **content change only**. It does not yet parse MCP configuration semantics or claim that a changed server, command, endpoint, permission, or tool is safe or unsafe. Structural MCP-aware summaries are planned for a later milestone.
+This focused implementation detects **content change only**. It does not claim that a changed server, command, endpoint, permission, or tool is safe or unsafe. MCP-aware interpretation belongs in MCPDoctor as that capability is implemented and tested.
 
 ## Build
 
