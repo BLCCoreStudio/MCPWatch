@@ -1,29 +1,51 @@
 # MCPWatch
 
-**Monitor local MCP configurations for unexpected server, tool, permission, and endpoint changes.**
+**Local baseline monitoring for Model Context Protocol configuration files.**
 
-> **Status:** early development. No stable release has been published.
+> **Status:** development preview. No stable release has been published.
 
-MCPWatch is intended to maintain a local baseline for selected Model Context Protocol configuration files and make later changes explicit for review.
+MCPWatch keeps a user-selected baseline copy of an MCP configuration and makes later file changes explicit without sending configuration data to a remote service.
 
-## Planned v0.1
+## Current preview
 
-- explicit user-selected configuration paths
-- local baseline snapshots
-- detect content changes without sending config data elsewhere
-- later structural summaries for server, command, endpoint, and permission changes
-- clear separation between file-change detection and security judgment
-- no background daemon required for the initial release
+Create a baseline:
 
-The current repository contains a development scaffold only. Snapshot persistence and structural MCP comparison are not implemented yet.
+```bash
+mcpwatch init ~/.config/example/mcp.json ./mcp.baseline
+```
+
+Check the current config later:
+
+```bash
+mcpwatch check ~/.config/example/mcp.json ./mcp.baseline
+```
+
+Accept the current file as the new baseline:
+
+```bash
+mcpwatch update ~/.config/example/mcp.json ./mcp.baseline
+```
+
+The current implementation:
+
+- stores the baseline locally at the path you choose
+- writes baseline updates through a temporary file and rename
+- compares files byte-for-byte
+- reports the approximate first changed line and byte position
+- exits `0` when unchanged, `3` when changed, and `2` on usage/read errors
+- requires no background daemon
+
+## Scope
+
+The current preview detects **content change only**. It does not yet parse MCP configuration semantics or claim that a changed server, command, endpoint, permission, or tool is safe or unsafe. Structural MCP-aware summaries are planned for a later milestone.
 
 ## Build
 
 Requires Rust 1.74 or newer.
 
 ```bash
-cargo build
-cargo test
+cargo build --locked
+cargo test --locked
 ```
 
 ## Security
